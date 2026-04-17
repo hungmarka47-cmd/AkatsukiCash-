@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKATSUKICASH | PREMIUM SYSTEM</title>
+
+    <!-- FAVICON nube Akatsuki en SVG puro -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23000'/><ellipse cx='50' cy='66' rx='40' ry='18' fill='%23e8192c'/><circle cx='24' cy='54' r='14' fill='%23e8192c'/><circle cx='42' cy='46' r='16' fill='%23e8192c'/><circle cx='62' cy='44' r='18' fill='%23e8192c'/><circle cx='80' cy='52' r='14' fill='%23e8192c'/></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -11,972 +15,463 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --red: #e8192c;
-            --red-dim: rgba(232, 25, 44, 0.15);
-            --red-glow: rgba(232, 25, 44, 0.6);
-            --green: #00e676;
-            --green-dim: rgba(0, 230, 118, 0.08);
-            --gold: #fbbf24;
-            --bg: #060608;
-            --surface: #0d0d10;
-            --surface2: #111116;
-            --border: rgba(255,255,255,0.06);
-            --border-red: rgba(232, 25, 44, 0.25);
-            --text: #f0f0f5;
-            --muted: #555566;
-            --font-display: 'Bebas Neue', sans-serif;
-            --font-mono: 'Space Mono', monospace;
-            --font-body: 'DM Sans', sans-serif;
+            --red:        #e8192c;
+            --red-dim:    rgba(232,25,44,0.15);
+            --red-glow:   rgba(232,25,44,0.55);
+            --green:      #00e676;
+            --green-dim:  rgba(0,230,118,0.08);
+            --gold:       #fbbf24;
+            --bg:         #060608;
+            --surface:    #0d0d10;
+            --surface2:   #111116;
+            --border:     rgba(255,255,255,0.06);
+            --border-red: rgba(232,25,44,0.25);
+            --text:       #f0f0f5;
+            --muted:      #55556a;
+            --display:    'Bebas Neue', sans-serif;
+            --mono:       'Space Mono', monospace;
+            --body:       'DM Sans', sans-serif;
         }
 
         html { scroll-behavior: smooth; }
-
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: var(--font-body);
+            font-family: var(--body);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* ── BACKGROUND EFFECTS ── */
-        body::before {
+        /* ── BACKGROUND ── */
+        .bg-layer {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .bg-layer::before {
             content: '';
-            position: fixed;
-            inset: 0;
+            position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 80% 40% at 50% -10%, rgba(232,25,44,0.12) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 30% at 90% 60%, rgba(232,25,44,0.05) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+                radial-gradient(ellipse 80% 40% at 50% -5%,  rgba(232,25,44,.13) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 30% at 92% 55%,  rgba(232,25,44,.06) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 25% at  5% 72%,  rgba(232,25,44,.05) 0%, transparent 55%);
         }
-
-        /* Scanline effect */
-        body::after {
+        .bg-layer::after {
             content: '';
-            position: fixed;
-            inset: 0;
+            position: absolute; inset: 0;
             background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0,0,0,0.03) 2px,
-                rgba(0,0,0,0.03) 4px
+                0deg, transparent, transparent 2px,
+                rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 4px
             );
-            pointer-events: none;
-            z-index: 1;
         }
 
+        /* Nubes Akatsuki SVG flotantes */
+        .cloud-svg {
+            position: absolute; fill: #e8192c;
+            opacity: 0.045;
+        }
+        .cloud-svg.c1 { width:220px; top:4%;   left:-50px;  animation: fc 18s ease-in-out infinite; }
+        .cloud-svg.c2 { width:170px; top:32%;  right:-40px; animation: fc 23s ease-in-out infinite reverse; opacity:.03; }
+        .cloud-svg.c3 { width:195px; top:62%;  left:8%;     animation: fc 27s ease-in-out infinite 5s; opacity:.028; }
+        .cloud-svg.c4 { width:145px; top:82%;  right:4%;    animation: fc 21s ease-in-out infinite 9s; opacity:.032; }
+
+        @keyframes fc {
+            0%,100% { transform: translateY(0)   translateX(0); }
+            33%     { transform: translateY(-13px) translateX(5px); }
+            66%     { transform: translateY(7px)   translateX(-4px); }
+        }
+
+        /* Sharingan decorativo */
+        .sharingan {
+            position: absolute; opacity: 0.038;
+            animation: spinSlow 42s linear infinite;
+        }
+        .sharingan.s1 { width:280px; top:10%;    right:-90px; }
+        .sharingan.s2 { width:200px; bottom:6%;  left:-65px;  animation-direction:reverse; opacity:.026; }
+        @keyframes spinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+        /* ── WRAPPER ── */
         .page-wrapper {
-            position: relative;
-            z-index: 2;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 0 16px 40px;
+            position: relative; z-index: 2;
+            max-width: 480px; margin: 0 auto;
+            padding: 0 16px 52px;
         }
 
-        /* ── TOP NAV ── */
+        /* ── TOPBAR ── */
         .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 16px 0 10px;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 28px;
         }
-
-        .topbar-brand {
-            font-family: var(--font-display);
-            font-size: 1.35rem;
-            letter-spacing: 3px;
-            color: #fff;
-        }
-
+        .topbar-brand { font-family: var(--display); font-size: 1.3rem; letter-spacing: 3px; color: #fff; }
         .topbar-brand span { color: var(--red); }
 
         .live-pill {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0,230,118,0.08);
-            border: 1px solid rgba(0,230,118,0.2);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            color: var(--green);
-            letter-spacing: 1px;
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(0,230,118,.07); border: 1px solid rgba(0,230,118,.18);
+            padding: 5px 11px; border-radius: 20px;
+            font-family: var(--mono); font-size: .52rem; color: var(--green); letter-spacing: 1px;
         }
-
         .pulse-dot {
-            width: 6px; height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--green);
+            width: 6px; height: 6px; background: var(--green);
+            border-radius: 50%; box-shadow: 0 0 8px var(--green);
             animation: pulse 1.8s ease-in-out infinite;
         }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.75)} }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-        }
-
-        /* ── HERO HEADER ── */
-        .hero {
-            text-align: center;
-            padding: 10px 0 24px;
-            position: relative;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.8rem, 14vw, 4rem);
-            letter-spacing: 6px;
-            line-height: 1;
-            color: #fff;
-            text-shadow:
-                0 0 40px rgba(232,25,44,0.4),
-                0 0 80px rgba(232,25,44,0.15);
-            animation: titleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .hero-title .accent { color: var(--red); }
-
-        @keyframes titleIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-sub {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--muted);
-            letter-spacing: 3px;
-            margin-top: 8px;
-            text-transform: uppercase;
-        }
-
-        .hero-line {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--red), transparent);
-            margin: 14px auto 0;
-        }
-
-        /* ── RATE CARD ── */
-        .rate-card {
-            background: var(--surface);
-            border: 1px solid var(--border-red);
-            border-radius: 12px;
-            padding: 18px 20px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            position: relative;
-            overflow: hidden;
-            animation: slideUp 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .rate-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--red), transparent);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .rate-label {
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            color: var(--muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .rate-value {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            color: var(--red);
-            letter-spacing: 2px;
-            line-height: 1;
-            text-shadow: 0 0 20px var(--red-glow);
-        }
-
-        .rate-value .unit {
-            font-size: 1rem;
-            color: var(--muted);
-            margin-left: 4px;
-        }
-
-        .rate-meta {
-            text-align: right;
-        }
-
-        .rate-meta-label {
-            font-size: 0.6rem;
-            color: var(--muted);
-            font-family: var(--font-mono);
-            letter-spacing: 1px;
-        }
-
-        .rate-meta-time {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--green);
-            margin-top: 3px;
-        }
-
-        /* ── PROMO BANNER ── */
-        .promo-banner {
-            background: linear-gradient(135deg, rgba(232,25,44,0.12) 0%, rgba(232,25,44,0.04) 100%);
-            border: 1px solid var(--border-red);
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            animation: slideUp 0.6s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .promo-icon {
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .promo-text-main {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            color: var(--gold);
-        }
-
-        .promo-text-sub {
-            font-size: 0.7rem;
-            color: var(--muted);
-            margin-top: 1px;
-            font-family: var(--font-mono);
-        }
-
-        .promo-badge {
-            margin-left: auto;
-            background: var(--gold);
-            color: #000;
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            padding: 4px 10px;
-            border-radius: 6px;
-            flex-shrink: 0;
-            letter-spacing: 1px;
-        }
-
-        /* ── LEADERBOARD TABS ── */
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            animation: slideUp 0.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-            color: #fff;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 4px;
-            animation: slideUp 0.6s 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .tab-btn {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--muted);
-            padding: 7px 14px;
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.25s;
-            text-transform: uppercase;
-        }
-
-        .tab-btn.active {
-            background: var(--red);
-            color: #fff;
-            border-color: var(--red);
-            box-shadow: 0 0 16px var(--red-dim);
-        }
-
-        .tab-btn:hover:not(.active) {
-            border-color: var(--border-red);
-            color: #fff;
-        }
-
-        /* ── LEADERBOARD CARD ── */
-        .board-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 16px;
-            animation: slideUp 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* Prize ribbon */
-        .prize-ribbon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px 16px;
-            background: linear-gradient(90deg, transparent, rgba(251,191,36,0.08), transparent);
-            border-bottom: 1px solid rgba(251,191,36,0.12);
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            color: var(--gold);
-            letter-spacing: 1px;
-        }
-
-        /* Table */
-        .board-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .board-table thead tr {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .board-table th {
-            padding: 10px 14px;
-            text-align: left;
-            font-family: var(--font-mono);
-            font-size: 0.52rem;
-            color: var(--muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 400;
-        }
-
-        .board-table th:last-child { text-align: right; }
-        .board-table td:last-child { text-align: right; }
-
-        .board-table tbody tr {
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.2s;
-        }
-
-        .board-table tbody tr:last-child { border-bottom: none; }
-
-        .board-table tbody tr:hover {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .board-table td {
-            padding: 14px 14px;
-            font-size: 0.88rem;
-            vertical-align: middle;
-        }
-
-        pos-cell {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            color: var(--muted);
-            width: 36px;
-        }
-
-        .pos-cell.gold-pos { color: var(--gold); text-shadow: 0 0 12px rgba(251,191,36,0.5); }
-        .pos-cell.silver-pos { color: #9ca3af; }
-        .pos-cell.bronze-pos { color: #cd7c5e; }
-
-        .user-cell {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 3px 9px;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .badge-legend {
-            background: linear-gradient(135deg, #fbbf24, #b45309);
-            color: #000;
-        }
-
-        .badge-maestro {
-            background: linear-gradient(135deg, #9ca3af, #4b5563);
-            color: #000;
-        }
-
-        .badge-elite {
-            background: transparent;
-            border: 1px solid #6b7280;
-            color: #9ca3af;
-        }
-
-        .badge-rookie {
-            background: transparent;
-            border: 1px solid var(--border-red);
-            color: var(--red);
-        }
-
-        .points-cell {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--text);
-        }
-
-        /* ── CALCULATOR ── */
-        .calc-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 16px;
-            animation: slideUp 0.6s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calc-section::after {
-            content: 'CALC';
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-family: var(--font-display);
-            font-size: 4rem;
-            color: rgba(255,255,255,0.015);
-            pointer-events: none;
-            letter-spacing: 4px;
-        }
-
-        .calc-label {
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            color: var(--muted);
-            letter-spacing: 2px;
-            margin-bottom: 14px;
-            text-transform: uppercase;
-        }
-
-        .calc-label span { color: var(--red); }
-
-        .calc-row {
-            display: flex;
-            gap: 10px;
-            align-items: stretch;
-        }
-
-        .calc-input-wrap {
-            flex: 1;
-            position: relative;
-                    }
-
-        .calc-input-prefix {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--muted);
-        }
-
-        #calcInput {
-            width: 100%;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            padding: 13px 12px 13px 36px;
-            border-radius: 8px;
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
-            -moz-appearance: textfield;
-        }
-
-        #calcInput::-webkit-outer-spin-button,
-        #calcInput::-webkit-inner-spin-button { -webkit-appearance: none; }
-
-        #calcInput:focus { border-color: var(--border-red); }
-        #calcInput::placeholder { color: var(--muted); font-size: 0.75rem; }
-
-        #calcResult {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            background: var(--green-dim);
-            border: 1px solid rgba(0,230,118,0.15);
-            border-radius: 8px;
-            padding: 10px 14px;
-        }
-
-        .result-value {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: var(--green);
-            letter-spacing: 1px;
-            text-shadow: 0 0 16px rgba(0,230,118,0.3);
-            line-height: 1;
-        }
-
-        .result-label {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: rgba(0,230,118,0.5);
-            margin-top: 3px;
-            letter-spacing: 1px;
-        }
-
-        /* ── ACTION BUTTONS ── */
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-            animation: slideUp 0.6s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .btn-action {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 18px 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-action::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .btn-action:active { transform: scale(0.97); }
-
-        .btn-action i {
-            font-size: 1.1rem;
-        }
-
-               .btn-action .btn-sub {
-            font-family: var(--font-mono);
-            font-size: 0.45rem;
-            letter-spacing: 1px;
-            opacity: 0.6;
-        }
-
-        .btn-deposit {
-            background: var(--green-dim);
-            border: 1.5px solid rgba(0,230,118,0.3);
-            color: var(--green);
-        }
-
-        .btn-deposit:hover {
-            background: var(--green);
-            color: #000;
-            border-color: var(--green);
-            box-shadow: 0 0 30px rgba(0,230,118,0.25);
-        }
-
-        .btn-withdraw {
-            background: var(--red-dim);
-            border: 1.5px solid var(--border-red);
-            color: var(--red);
-        }
-
-        .btn-withdraw:hover {
-            background: var(--red);
-            color: #fff;
-            border-color: var(--red);
-            box-shadow: 0 0 30px var(--red-dim);
-        }
-
-        /* ── INFO CARDS ── */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-            animation: slideUp 0.6s 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .info-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            text-decoration: none;
-            color: var(--text);
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .info-card:hover {
-            border-color: var(--border-red);
-            transform: translateY(-2px);
-        }
-
-        .info-card-icon {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        .info-card-title {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            color: #fff;
-        }
-
-        .info-card-sub {
-            font-size: 0.65rem;
-            color: var(--muted);
-            margin-top: 3px;
-            font-family: var(--font-mono);
-        }
-
-        /* ── FOOTER ── */
-        footer {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            animation: slideUp 0.6s 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .footer-brand {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            letter-spacing: 4px;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .footer-brand span { color: var(--red); }
-
-        .footer-links {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 10px;
-        }
-
-        .footer-link {
-            color: var(--muted);
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            letter-spacing: 1px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-
-        .footer-link:hover { color: var(--red); }
-
-        .footer-copy {
-            font-family: var(--font-mono);
-            font-size: 0.52rem;
-            color: #333;
-            margin-top: 12px;
-            letter-spacing: 1px;
-        }
-
-        /* ── WHATSAPP FLOAT ── */
-        .wa-float {
-            position: fixed;
-            bottom: 24px;
-            right: 20px;
-            z-index: 100;
-            width: 52px;
-            height: 52px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.4rem;
-            text-decoration: none;
-            box-shadow: 0 4px 24px rgba(37, 211, 102, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: waIn 0.5s 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        @keyframes waIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .wa-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 32px rgba(37, 211, 102, 0.6);
-        }
-
-        /* ── TICKER STRIP ── */
+        /* ── TICKER ── */
         .ticker-strip {
-            background: rgba(232,25,44,0.06);
-            border-top: 1px solid var(--border-red);
+            background: rgba(232,25,44,.05);
             border-bottom: 1px solid var(--border-red);
-            padding: 8px 0;
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
+            padding: 7px 0; margin-bottom: 24px; overflow: hidden;
         }
-
         .ticker-inner {
-            display: flex;
-            gap: 40px;
-            white-space: nowrap;
-            animation: ticker 25s linear infinite;
+            display: flex; gap: 48px; white-space: nowrap;
+            animation: ticker 28s linear infinite;
         }
-
-        @keyframes ticker {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        .ticker-item {
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            letter-spacing: 2px;
-            color: var(--muted);
-            text-transform: uppercase;
-            flex-shrink: 0;
-        }
-
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .ticker-item { font-family:var(--mono); font-size:.54rem; letter-spacing:2px; color:var(--muted); text-transform:uppercase; flex-shrink:0; }
         .ticker-item .hi { color: var(--red); }
         .ticker-item .lo { color: var(--green); }
 
+        /* ── HERO ── */
+        .hero { text-align: center; padding: 4px 0 22px; }
+        .hero-title {
+            font-family: var(--display);
+            font-size: clamp(2.6rem, 13vw, 3.8rem);
+            letter-spacing: 6px; line-height: 1; color: #fff;
+            text-shadow: 0 0 40px rgba(232,25,44,.4), 0 0 80px rgba(232,25,44,.12);
+            animation: titleIn .7s cubic-bezier(.16,1,.3,1) both;
+        }
+        .hero-title .acc { color: var(--red); }
+        @keyframes titleIn { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+        .hero-sub { font-family:var(--mono); font-size:.58rem; color:var(--muted); letter-spacing:3px; margin-top:8px; }
+        .hero-line { width:56px; height:2px; background:linear-gradient(90deg,transparent,var(--red),transparent); margin:12px auto 0; }
+
+        /* ── RATE ── */
+        .rate-card {
+            background: var(--surface); border: 1px solid var(--border-red);
+            border-radius: 12px; padding: 16px 20px;
+            display: grid; grid-template-columns: 1fr auto;
+            align-items: center; gap: 12px; margin-bottom: 14px;
+            position: relative; overflow: hidden;
+            animation: slideUp .5s .15s cubic-bezier(.16,1,.3,1) both;
+        }
+        .rate-card::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; background:linear-gradient(180deg,var(--red),transparent); }
+        @keyframes slideUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+        .rate-label { font-family:var(--mono); font-size:.54rem; color:var(--muted); letter-spacing:2px; margin-bottom:4px; }
+        .rate-value { font-family:var(--display); font-size:2rem; color:var(--red); letter-spacing:2px; line-height:1; text-shadow:0 0 20px var(--red-glow); }
+        .rate-value .unit { font-size:1rem; color:var(--muted); margin-left:4px; }
+        .rate-meta { text-align:right; }
+        .rate-meta-label { font-size:.54rem; color:var(--muted); font-family:var(--mono); letter-spacing:1px; }
+        .rate-meta-time  { font-family:var(--mono); font-size:.68rem; color:var(--green); margin-top:3px; }
+
+        /* ── PROMO ── */
+        .promo-banner {
+            background: linear-gradient(135deg,rgba(232,25,44,.1) 0%,rgba(232,25,44,.03) 100%);
+            border: 1px solid var(--border-red); border-radius: 10px;
+            padding: 12px 16px; margin-bottom: 22px;
+            display: flex; align-items: center; gap: 12px;
+            animation: slideUp .5s .25s cubic-bezier(.16,1,.3,1) both;
+        }
+        .promo-icon { font-size:1.35rem; flex-shrink:0; }
+        .promo-text-main { font-family:var(--display); font-size:1.05rem; letter-spacing:1px; color:var(--gold); }
+        .promo-text-sub  { font-size:.65rem; color:var(--muted); margin-top:2px; font-family:var(--mono); }
+        .promo-badge { margin-left:auto; background:var(--gold); color:#000; font-family:var(--display); font-size:.8rem; padding:4px 10px; border-radius:6px; flex-shrink:0; letter-spacing:1px; }
+
+        /* ── SECTION ── */
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .section-title { font-family:var(--display); font-size:1.25rem; letter-spacing:3px; color:#fff; }
+        .section-action { background:none; border:none; color:var(--muted); font-family:var(--mono); font-size:.52rem; letter-spacing:1px; cursor:pointer; padding:0; transition:color .2s; }
+        .section-action:hover { color:var(--red); }
+
+        /* ── TABS ── */
+        .tabs { display:flex; gap:5px; margin-bottom:10px; }
+        .tab-btn {
+            flex:1; background:var(--surface2); border:1px solid var(--border);
+            color:var(--muted); padding:8px 4px;
+            font-family:var(--mono); font-size:.5rem; letter-spacing:1px;
+            cursor:pointer; border-radius:6px; transition:all .22s; text-transform:uppercase;
+        }
+        .tab-btn.active { background:var(--red); color:#fff; border-color:var(--red); box-shadow:0 0 14px var(--red-dim); }
+        .tab-btn:hover:not(.active) { border-color:var(--border-red); color:#ddd; }
+
+        /* ── BOARD ── */
+        .board-card {
+            background:var(--surface); border:1px solid var(--border);
+            border-radius:14px; overflow:hidden; margin-bottom:16px;
+        }
+        .tab-content { display:none; }
+        .tab-content.active { display:block; animation:fadeTab .3s ease; }
+        @keyframes fadeTab { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+        .prize-ribbon {
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            padding:10px 16px;
+            background:linear-gradient(90deg,transparent,rgba(251,191,36,.07),transparent);
+            border-bottom:1px solid rgba(251,191,36,.12);
+            font-family:var(--mono); font-size:.58rem; color:var(--gold); letter-spacing:1px;
+        }
+        .prize-ribbon.green-rib {
+            color:var(--green);
+            border-bottom-color:rgba(0,230,118,.1);
+            background:linear-gradient(90deg,transparent,rgba(0,230,118,.05),transparent);
+        }
+
+        /* Scroll: muestra ~5 filas, el resto scroll suave */
+        .table-scroll-wrap {
+            max-height: 236px; overflow-y:auto;
+            scrollbar-width:thin; scrollbar-color:#1e1e26 transparent;
+        }
+        .table-scroll-wrap::-webkit-scrollbar { width:3px; }
+        .table-scroll-wrap::-webkit-scrollbar-thumb { background:#1e1e26; border-radius:2px; }
+
+        .board-table { width:100%; border-collapse:collapse; }
+        .board-table thead tr { border-bottom:1px solid var(--border); }
+        .board-table th { padding:9px 12px; text-align:left; font-family:var(--mono); font-size:.48rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; font-weight:400; }
+        .board-table th:last-child, .board-table td:last-child { text-align:right; }
+        .board-table tbody tr { border-bottom:1px solid rgba(255,255,255,.03); transition:background .18s; }
+        .board-table tbody tr:last-child { border-bottom:none; }
+        .board-table tbody tr:hover { background:rgba(255,255,255,.02); }
+        .board-table td { padding:13px 12px; font-size:.86rem; vertical-align:middle; }
+
+        .pos-cell { font-family:var(--display); font-size:1.05rem; color:var(--muted); width:32px; }
+        .pos-cell.gp { color:var(--gold);   text-shadow:0 0 10px rgba(251,191,36,.45); }
+        .pos-cell.sp { color:#9ca3af; }
+        .pos-cell.bp { color:#cd7c5e; }
+
+        .user-cell { font-weight:500; font-size:.88rem; font-family:var(--mono); }
+        .pts-cell  { font-family:var(--mono); font-size:.78rem; color:var(--text); }
+
+        .badge { display:inline-flex; align-items:center; padding:3px 9px; border-radius:4px; font-family:var(--mono); font-size:.48rem; letter-spacing:1px; font-weight:700; }
+        .badge-legend  { background:linear-gradient(135deg,#fbbf24,#b45309); color:#000; }
+        .badge-maestro { background:linear-gradient(135deg,#9ca3af,#4b5563); color:#000; }
+        .badge-elite   { background:transparent; border:1px solid #6b7280; color:#9ca3af; }
+        .badge-rookie  { background:transparent; border:1px solid var(--border-red); color:var(--red); }
+
+        /* ── DIVIDER ── */
+        .divider { height:1px; background:var(--border); margin:8px 0 20px; }
+
+        /* ── CALCULATOR ── */
+        .calc-section {
+            background:var(--surface); border:1px solid var(--border);
+            border-radius:14px; padding:18px 20px; margin-bottom:16px;
+            position:relative; overflow:hidden;
+            animation:slideUp .5s .55s cubic-bezier(.16,1,.3,1) both;
+        }
+        .calc-section::after { content:'¥'; position:absolute; right:14px; top:50%; transform:translateY(-50%); font-family:var(--display); font-size:5rem; color:rgba(255,255,255,.012); pointer-events:none; }
+        .calc-label { font-family:var(--mono); font-size:.52rem; color:var(--muted); letter-spacing:2px; margin-bottom:12px; }
+        .calc-label span { color:var(--red); }
+        .calc-row { display:flex; gap:10px; align-items:stretch; }
+        .calc-input-wrap { flex:1; position:relative; }
+        .calc-prefix { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:.68rem; color:var(--muted); }
+        #calcInput {
+            width:100%; background:var(--surface2); border:1px solid var(--border);
+            padding:13px 12px 13px 30px; border-radius:8px; color:#fff;
+            font-family:var(--mono); font-size:.88rem; outline:none; transition:border-color .2s;
+            -moz-appearance:textfield;
+        }
+        #calcInput::-webkit-outer-spin-button, #calcInput::-webkit-inner-spin-button { -webkit-appearance:none; }
+        #calcInput:focus { border-color:var(--border-red); }
+        #calcInput::placeholder { color:var(--muted); font-size:.7rem; }
+        #calcResult { flex:1; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; background:var(--green-dim); border:1px solid rgba(0,230,118,.14); border-radius:8px; padding:10px 14px; }
+        .result-value { font-family:var(--display); font-size:1.2rem; color:var(--green); letter-spacing:1px; text-shadow:0 0 14px rgba(0,230,118,.28); line-height:1; }
+        .result-label { font-family:var(--mono); font-size:.48rem; color:rgba(0,230,118,.45); margin-top:3px; letter-spacing:1px; }
+
+        /* ── ACTIONS ── */
+        .actions { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; animation:slideUp .5s .65s cubic-bezier(.16,1,.3,1) both; }
+        .btn-action { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:17px 12px; border-radius:12px; text-decoration:none; font-family:var(--display); font-size:1.05rem; letter-spacing:2px; transition:all .28s cubic-bezier(.16,1,.3,1); }
+        .btn-action i { font-size:1rem; }
+        .btn-action .btn-sub { font-family:var(--mono); font-size:.42rem; letter-spacing:1px; opacity:.55; }
+        .btn-action:active { transform:scale(.97); }
+        .btn-deposit  { background:var(--green-dim); border:1.5px solid rgba(0,230,118,.28); color:var(--green); }
+        .btn-deposit:hover  { background:var(--green); color:#000; border-color:var(--green); box-shadow:0 0 28px rgba(0,230,118,.22); }
+        .btn-withdraw { background:var(--red-dim); border:1.5px solid var(--border-red); color:var(--red); }
+        .btn-withdraw:hover { background:var(--red); color:#fff; border-color:var(--red); box-shadow:0 0 28px var(--red-dim); }
+
+        /* ── INFO CARDS ── */
+        .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; animation:slideUp .5s .7s cubic-bezier(.16,1,.3,1) both; }
+        .info-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:15px; text-decoration:none; color:var(--text); transition:border-color .2s,transform .2s; }
+        .info-card:hover { border-color:var(--border-red); transform:translateY(-2px); }
+        .info-card-icon  { font-size:1.15rem; margin-bottom:7px; }
+                .info-card-title { font-family:var(--display); font-size:.9rem; letter-spacing:1px; color:#fff; }
+        .info-card-sub   { font-size:.62rem; color:var(--muted); margin-top:3px; font-family:var(--mono); }
+
+        /* ── FOOTER ── */
+        footer { text-align:center; padding-top:22px; border-top:1px solid var(--border); animation:slideUp .5s .78s cubic-bezier(.16,1,.3,1) both; }
+        .footer-brand { font-family:var(--display); font-size:1rem; letter-spacing:4px; color:#fff; margin-bottom:6px; }
+        .footer-brand span { color:var(--red); }
+        .footer-links { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:10px; }
+        .footer-link { color:var(--muted); font-family:var(--mono); font-size:.52rem; letter-spacing:1px; text-decoration:none; text-transform:uppercase; transition:color .2s; }
+        .footer-link:hover { color:var(--red); }
+        .footer-copy { font-family:var(--mono); font-size:.48rem; color:#2a2a35; margin-top:12px; letter-spacing:1px; }
+
+        /* ── WA FLOAT ── */
+        .wa-float { position:fixed; bottom:24px; right:18px; z-index:100; width:52px; height:52px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.35rem; text-decoration:none; box-shadow:0 4px 22px rgba(37,211,102,.38); transition:transform .28s,box-shadow .28s; animation:waIn .5s 1.1s cubic-bezier(.16,1,.3,1) both; }
+        @keyframes waIn { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
+        .wa-float:hover { transform:scale(1.1); box-shadow:0 6px 30px rgba(37,211,102,.55); }
+
         /* ── MODAL ── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-                      transition: opacity 0.3s;
-        }
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:200; display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity .28s; }
+        .modal-overlay.open { opacity:1; pointer-events:all; }
+        .modal { background:var(--surface); border:1px solid var(--border-red); border-radius:20px 20px 0 0; padding:26px 22px 38px; width:100%; max-width:480px; transform:translateY(100%); transition:transform .38s cubic-bezier(.16,1,.3,1); position:relative; }
+        .modal-overlay.open .modal { transform:translateY(0); }
+        .modal-handle { width:34px; height:3px; background:var(--border); border-radius:2px; margin:0 auto 18px; }
+        .modal-title  { font-family:var(--display); font-size:1.3rem; letter-spacing:3px; margin-bottom:8px; }
+        .modal-desc   { font-family:var(--mono); font-size:.55rem; color:var(--muted); margin-bottom:14px; letter-spacing:1px; line-height:1.7; }
+        .modal-desc span { color:#fff; }
+        .modal-close  { position:absolute; top:16px; right:18px; background:none; border:none; color:var(--muted); font-size:.95rem; cursor:pointer; }
 
-        .modal-overlay.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            background: var(--surface);
-            border: 1px solid var(--border-red);
-            border-radius: 20px 20px 0 0;
-            padding: 28px 24px 36px;
-            width: 100%;
-            max-width: 480px;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-overlay.open .modal {
-            transform: translateY(0);
-        }
-
-        .modal-handle {
-            width: 36px;
-            height: 3px;
-            background: var(--border);
-            border-radius: 2px;
-            margin: 0 auto 20px;
-        }
-
-        .modal-title {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            letter-spacing: 3px;
-            margin-bottom: 16px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 18px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .rank-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .rank-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            background: var(--surface2);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-        .rank-icon {
-            font-size: 1.2rem;
-            width: 28px;
-            text-align: center;
-        }
-
-        .rank-info { flex: 1; }
-        .rank-name {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .rank-req {
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            color: var(--muted);
-            margin-top: 2px;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+        .rank-list { display:flex; flex-direction:column; gap:8px; }
+        .rank-item { display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--surface2); border-radius:10px; border:1px solid var(--border); }
+        .rank-icon { font-size:1.15rem; width:26px; text-align:center; }
+        .rank-info { flex:1; }
+        .rank-name  { font-family:var(--display); font-size:.95rem; letter-spacing:1px; }
+        .rank-req   { font-family:var(--mono); font-size:.52rem; color:var(--muted); margin-top:2px; }
+        .rank-prize { font-family:var(--mono); font-size:.54rem; color:var(--gold); margin-top:2px; }
     </style>
 </head>
 <body>
 
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5350677110?text=Hola,%20necesito%20soporte" class="wa-float" title="Soporte">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<!-- ═══ FONDO AKATSUKI ═══ -->
+<div class="bg-layer">
+    <!-- Nubes rojas Akatsuki -->
+    <svg class="cloud-svg c1" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="60" rx="95" ry="22"/>
+        <circle cx="38" cy="48" r="20"/><circle cx="72" cy="36" r="26"/>
+        <circle cx="114" cy="32" r="28"/><circle cx="158" cy="42" r="22"/>
+    </svg>
+    <svg class="cloud-svg c2" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="60" rx="95" ry="22"/>
+        <circle cx="38" cy="48" r="20"/><circle cx="72" cy="36" r="26"/>
+        <circle cx="114" cy="32" r="28"/><circle cx="158" cy="42" r="22"/>
+    </svg>
+    <svg class="cloud-svg c3" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="60" rx="95" ry="22"/>
+        <circle cx="38" cy="48" r="20"/><circle cx="72" cy="36" r="26"/>
+        <circle cx="114" cy="32" r="28"/><circle cx="158" cy="42" r="22"/>
+    </svg>
+    <svg class="cloud-svg c4" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="60" rx="95" ry="22"/>
+        <circle cx="38" cy="48" r="20"/><circle cx="72" cy="36" r="26"/>
+        <circle cx="114" cy="32" r="28"/><circle cx="158" cy="42" r="22"/>
+    </svg>
+    <!-- Sharingan -->
+    <svg class="sharingan s1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8192c" stroke-width="3">
+        <circle cx="100" cy="100" r="90"/><circle cx="100" cy="100" r="50"/><circle cx="100" cy="100" r="18"/>
+        <circle cx="100" cy="60"  r="9" fill="#e8192c" stroke="none"/>
+        <circle cx="133" cy="122" r="9" fill="#e8192c" stroke="none"/>
+        <circle cx="67"  cy="122" r="9" fill="#e8192c" stroke="none"/>
+        <line x1="100" y1="10" x2="100" y2="190"/><line x1="10" y1="100" x2="190" y2="100"/>
+        <line x1="29" y1="29" x2="171" y2="171"/><line x1="171" y1="29" x2="29" y2="171"/>
+    </svg>
+    <svg class="sharingan s2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8192c" stroke-width="3">
+        <circle cx="100" cy="100" r="90"/><circle cx="100" cy="100" r="50"/><circle cx="100" cy="100" r="18"/>
+        <circle cx="100" cy="60"  r="9" fill="#e8192c" stroke="none"/>
+        <circle cx="133" cy="122" r="9" fill="#e8192c" stroke="none"/>
+        <circle cx="67"  cy="122" r="9" fill="#e8192c" stroke="none"/>
+        <line x1="100" y1="10" x2="100" y2="190"/><line x1="10" y1="100" x2="190" y2="100"/>
+        <line x1="29" y1="29" x2="171" y2="171"/><line x1="171" y1="29" x2="29" y2="171"/>
+    </svg>
+</div>
 
-<!-- RANK INFO MODAL -->
+<!-- WA FLOAT -->
+<a href="https://wa.me/5350677110?text=Hola,%20necesito%20soporte" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+<!-- MODAL RANGOS -->
 <div class="modal-overlay" id="rankModal" onclick="closeModal()">
     <div class="modal" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
         <div class="modal-handle"></div>
         <div class="modal-title">SISTEMA DE RANGOS</div>
+        <p class="modal-desc">
+            Los rangos se asignan por <span>posición en el podio</span> al cierre de cada período.<br>
+            Ranking general: se renueva cada <span style="color:var(--red);">4 meses</span>.
+        </p>
         <div class="rank-list">
             <div class="rank-item">
-                <div class="rank-icon">🔰</div>
+                <div class="rank-icon">👑</div>
                 <div class="rank-info">
-                    <div class="rank-name" style="color:#ef4444;">ROOKIE</div>
-                    <div class="rank-req">0 – 499 puntos · Acceso básico</div>
+                    <div class="rank-name" style="color:var(--gold);">LEYENDA</div>
+                    <div class="rank-req">1er lugar del podio</div>
+                    <div class="rank-prize">Premio máximo de temporada</div>
                 </div>
-                <span class="badge badge-rookie">ROOKIE</span>
+                <span class="badge badge-legend">LEYENDA</span>
             </div>
             <div class="rank-item">
-                <div class="rank-icon">⚡</div>
-                <div class="rank-info">
-                    <div class="rank-name" style="color:#9ca3af;">ELITE</div>
-                    <div class="rank-req">500 – 1499 puntos · Bonos exclusivos</div>
-                </div>
-                <span class="badge badge-elite">ELITE</span>
-            </div>
-            <div class="rank-item">
-                <div class="rank-icon">🎯</div>
+                <div class="rank-icon">⚔️</div>
                 <div class="rank-info">
                     <div class="rank-name" style="color:#c0c0c0;">MAESTRO</div>
-                    <div class="rank-req">1500 – 2499 puntos · Retiros prioritarios</div>
+                    <div class="rank-req">2do lugar del podio</div>
+                    <div class="rank-prize">Premio intermedio de temporada</div>
                 </div>
                 <span class="badge badge-maestro">MAESTRO</span>
             </div>
             <div class="rank-item">
-                <div class="rank-icon">👑</div>
+                <div class="rank-icon">🔥</div>
                 <div class="rank-info">
-                    <div class="rank-name" style="color:#fbbf24;">LEYENDA</div>
-                    <div class="rank-req">2500+ puntos · VIP total + premios</div>
+                    <div class="rank-name" style="color:#cd7c5e;">ELITE</div>
+                    <div class="rank-req">3er lugar del podio</div>
+                    <div class="rank-prize">Premio de entrada de temporada</div>
                 </div>
-                <span class="badge badge-legend">LEYENDA</span>
+                <span class="badge badge-elite">ELITE</span>
+            </div>
+            <div class="rank-item">
+                <div class="rank-icon">🌀</div>
+                <div class="rank-info">
+                    <div class="rank-name" style="color:var(--muted);">ROOKIE</div>
+                    <div class="rank-req">Fuera del podio</div>
+                    <div class="rank-prize">Sigue acumulando — próxima temporada</div>
+                </div>
+                <span class="badge badge-rookie">ROOKIE</span>
             </div>
         </div>
     </div>
 </div>
 
+<!-- ════════════ PÁGINA ════════════ -->
 <div class="page-wrapper">
 
-    <!-- TOPBAR -->
     <div class="topbar">
         <div class="topbar-brand">AKATSU<span>KI</span>CASH</div>
-        <div class="live-pill">
-            <div class="pulse-dot"></div>
-            SYSTEM LIVE
-        </div>
+        <div class="live-pill"><div class="pulse-dot"></div> SYSTEM LIVE</div>
     </div>
 
-    <!-- TICKER -->
     <div class="ticker-strip">
         <div class="ticker-inner">
-            <span class="ticker-item">1XBET CAJERO OFICIAL &nbsp;·&nbsp; TASA HOY: <span class="hi">$620 CUP</span></span>
-            <span class="ticker-item">DEPÓSITOS: 24/7 &nbsp;·&nbsp; RETIROS: EN MINUTOS</span>
-            <span class="ticker-item">PUNTAJE TOP 1 SEMANAL: <span class="lo">PREMIO 5000 CUP</span></span>
-            <span class="ticker-item">SOPORTE VÍA WHATSAPP &nbsp;·&nbsp; <span class="hi">RESPUESTA INMEDIATA</span></span>
-            <!-- duplicate for seamless loop -->
-            <span class="ticker-item">1XBET CAJERO OFICIAL &nbsp;·&nbsp; TASA HOY: <span class="hi">$620 CUP</span></span>
-            <span class="ticker-item">DEPÓSITOS: 24/7 &nbsp;·&nbsp; RETIROS: EN MINUTOS</span>
-            <span class="ticker-item">PUNTAJE TOP 1 SEMANAL: <span class="lo">PREMIO 5000 CUP</span></span>
-            <span class="ticker-item">SOPORTE VÍA WHATSAPP &nbsp;·&nbsp; <span class="hi">RESPUESTA INMEDIATA</span></span>
+            <span class="ticker-item">CAJERO OFICIAL 1XBET &nbsp;·&nbsp; TASA: <span class="hi">$620 CUP</span></span>
+            <span class="ticker-item">DEPÓSITOS 24/7 &nbsp;·&nbsp; RETIROS: <span class="lo">INMEDIATOS</span></span>
+            <span class="ticker-item">🏆 PREMIOS SEMANALES Y MENSUALES &nbsp;·&nbsp; <span class="lo">¡PARTICIPA!</span></span>
+            <span class="ticker-item">SOPORTE VÍA WHATSAPP &nbsp;·&nbsp; <span class="hi">RESPUESTA RÁPIDA</span></span>
+            <span class="ticker-item">CAJERO OFICIAL 1XBET &nbsp;·&nbsp; TASA: <span class="hi">$620 CUP</span></span>
+            <span class="ticker-item">DEPÓSITOS 24/7 &nbsp;·&nbsp; RETIROS: <span class="lo">INMEDIATOS</span></span>
+            <span class="ticker-item">🏆 PREMIOS SEMANALES Y MENSUALES &nbsp;·&nbsp; <span class="lo">¡PARTICIPA!</span></span>
+            <span class="ticker-item">SOPORTE VÍA WHATSAPP &nbsp;·&nbsp; <span class="hi">RESPUESTA RÁPIDA</span></span>
         </div>
     </div>
 
-    <!-- HERO -->
     <div class="hero">
-        <h1 class="hero-title">AKATSU<span class="accent">KI</span>CASH</h1>
-        <p class="hero-sub">PREMIUM BETTING SYSTEM &nbsp;|&nbsp; CAJERO 1XBET</p>
+        <h1 class="hero-title">AKATSU<span class="acc">KI</span>CASH</h1>
+        <p class="hero-sub">PREMIUM BETTING SYSTEM &nbsp;|&nbsp; CAJERO OFICIAL 1XBET</p>
         <div class="hero-line"></div>
     </div>
 
-    <!-- RATE CARD -->
+    <!-- TASA -->
     <div class="rate-card">
         <div>
-            <div class="rate-label">TASA DE CAMBIO USDT/USD</div>
-            <div class="rate-value" id="rateDisplay">620 <span class="unit">CUP</span></div>
+            <div class="rate-label">TASA DE CAMBIO USDT / USD</div>
+            <!--
+            ══════════════════════════════════════════
+            ► PARA CAMBIAR LA TASA:
+              1) Cambia "620" por el nuevo valor aquí abajo
+              2) También cambia la constante TASA=620 en el <script> al final
+            ══════════════════════════════════════════
+            -->
+            <div class="rate-value">620 <span class="unit">CUP</span></div>
         </div>
         <div class="rate-meta">
             <div class="rate-meta-label">ACTUALIZADO</div>
@@ -984,147 +479,225 @@
         </div>
     </div>
 
-    <!-- PROMO BANNER -->
+    <!-- PROMO -->
     <div class="promo-banner">
-        <div class="promo-icon">🏆</div>
+        <div class="promo-icon">🎁</div>
         <div>
             <div class="promo-text-main">BONO DE BIENVENIDA</div>
-            <div class="promo-text-sub">Primer depósito · Condiciones por WA</div>
+            <!-- ► CAMBIA el texto de la promo aquí -->
+            <div class="promo-text-sub">Primer depósito · Consulta condiciones por WA</div>
         </div>
         <div class="promo-badge">+10%</div>
     </div>
 
-    <!-- LEADERBOARD -->
-    <div class="section-header">
-        <div class="section-title">RANKING</div>
-        <button class="btn-action" style="background:none;border:none;color:var(--muted);font-family:var(--font-mono);font-size:0.55rem;letter-spacing:1px;cursor:pointer;padding:0;" onclick="openModal()">
-            VER RANGOS <i class="fas fa-chevron-right" style="font-size:0.5rem;margin-left:4px;"></i>
-        </button>
+    <!-- ══════════ RANKING DEPÓSITOS ══════════ -->
+    <div class="section-header" style="animation:slideUp .5s .35s cubic-bezier(.16,1,.3,1) both;">
+        <div class="section-title">RANKING DEPÓSITOS</div>
+        <button class="section-action" onclick="openModal()">VER RANGOS <i class="fas fa-chevron-right" style="font-size:.44rem;margin-left:3px;"></i></button>
     </div>
 
-    <div class="tabs" style="margin-bottom:10px;">
-        <button class="tab-btn active" onclick="openTab(event,'general')">GENERAL</button>
-        <button class="tab-btn" onclick="openTab(event,'semanal')">SEMANAL</button>
-        <button class="tab-btn" onclick="openTab(event,'mensual')">MENSUAL</button>
+    <div class="tabs" style="animation:slideUp .5s .38s cubic-bezier(.16,1,.3,1) both;">
+        <button class="tab-btn active" onclick="openTab(event,'dep-sem','dep')">SEMANAL</button>
+        <button class="tab-btn"        onclick="openTab(event,'dep-men','dep')">MENSUAL</button>
     </div>
 
-    <div class="board-card">
-        <!-- GENERAL TAB -->
-        <div id="general" class="tab-content active">
-            <table class="board-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>USUARIO</th>
-                        <th>PUNTOS</th>
-                        <th>RANGO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pos-cell gold-pos">01</td>
-                        <td class="user-cell">@Sniper_Vip</td>
-                        <td class="points-cell">2,500</td>
-                        <td><span class="badge badge-legend">LEYENDA</span></td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell silver-pos">02</td>
-                        <td class="user-cell">@Rafa_Bet</td>
-                        <td class="points-cell">1,850</td>
-                        <td><span class="badge badge-maestro">MAESTRO</span></td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell bronze-pos">03</td>
-                        <td class="user-cell">@User_Hlg</td>
-                        <td class="points-cell">1,200</td>
-                        <td><span class="badge badge-elite">ELITE</span></td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell">04</td>
-                        <td class="user-cell">@BetKing_99</td>
-                        <td class="points-cell">780</td>
-                        <td><span class="badge badge-elite">ELITE</span></td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell">05</td>
-                        <td class="user-cell">@NovaBet</td>
-                        <td class="points-cell">340</td>
-                                                <td><span class="badge badge-rookie">ROOKIE</span></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="board-card" id="boardDep" style="animation:slideUp .5s .42s cubic-bezier(.16,1,.3,1) both;">
+
+        <!--
+        ════════════════════════════════════════════════════════
+        CÓMO ACTUALIZAR EL RANKING (igual para depósitos y retiros)
+
+        ► AGREGAR usuario: copia un <tr>...</tr> completo y pégalo
+          en el <tbody>, en el orden correcto (01, 02, 03...).
+
+        ► EDITAR usuario: busca el <td class="user-cell"> y cambia
+          el número de ID. Cambia los puntos en <td class="pts-cell">.
+
+        ► CAMBIAR BADGE: reemplaza la clase del <span class="badge ...">
+          Opciones: badge-legend / badge-maestro / badge-elite / badge-rookie
+
+        ► CAMBIAR PREMIO: edita el texto dentro de .prize-ribbon
+
+        ► Los primeros 5 se ven de inmediato; los demás aparecen
+          al deslizar hacia abajo dentro de la tabla.
+        ════════════════════════════════════════════════════════
+        -->
+
+        <!-- TAB SEMANAL DEPÓSITOS -->
+        <div id="dep-sem" class="tab-content active">
+            <div class="prize-ribbon">
+                🏆 TOP 1: <strong style="color:#fff;margin:0 6px;">CONSULTAR POR WA</strong>
+                &nbsp;·&nbsp; TOP 2: <strong style="color:#fff;margin:0 6px;">CONSULTAR POR WA</strong>
+                &nbsp;·&nbsp; TOP 3: <strong style="color:#fff;margin-left:6px;">CONSULTAR POR WA</strong>
+            </div>
+            <div class="table-scroll-wrap">
+                <table class="board-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID USUARIO</th>
+                            <th>PUNTOS</th>
+                            <th>RANGO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- PODIO -->
+                        <tr>
+                            <td class="pos-cell gp">01</td>
+                            <td class="user-cell">1565593149</td>   <!-- ◄ CAMBIA EL ID -->
+                            <td class="pts-cell">—</td>             <!-- ◄ CAMBIA LOS PUNTOS -->
+                            <td><span class="badge badge-legend">LEYENDA</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell sp">02</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-maestro">MAESTRO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell bp">03</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-elite">ELITE</span></td>
+                        </tr>
+                        <!-- FUERA DEL PODIO — agrega más filas aquí:
+                        <tr>
+                            <td class="pos-cell">04</td>
+                            <td class="user-cell">ID_DEL_USUARIO</td>
+                            <td class="pts-cell">PUNTOS</td>
+                            <td><span class="badge badge-rookie">ROOKIE</span></td>
+                        </tr>
+                        -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- SEMANAL TAB -->
-        <div id="semanal" class="tab-content">
+        <!-- TAB MENSUAL DEPÓSITOS -->
+        <div id="dep-men" class="tab-content">
             <div class="prize-ribbon">
-                🏆 PREMIO TOP 1: <strong style="color:#fff;margin-left:4px;">5,000 CUP</strong>
-                &nbsp;·&nbsp; TOP 2: <strong style="color:#fff;margin-left:4px;">2,000 CUP</strong>
+                💎 TOP 1: <strong style="color:#fff;margin:0 6px;">CONSULTAR POR WA</strong>
+                &nbsp;+&nbsp; <strong style="color:var(--gold);margin-left:6px;">REGALO VIP</strong>
             </div>
-            <table class="board-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>USUARIO</th>
-                        <th>DEPÓSITOS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pos-cell gold-pos">01</td>
-                        <td class="user-cell">@User_King</td>
-                        <td class="points-cell">$450 USD</td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell silver-pos">02</td>
-                        <td class="user-cell">@Mister_X</td>
-                        <td class="points-cell">$320 USD</td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell bronze-pos">03</td>
-                        <td class="user-cell">@Sniper_Vip</td>
-                        <td class="points-cell">$210 USD</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-wrap">
+                <table class="board-table">
+                    <thead>
+                        <tr><th>#</th><th>ID USUARIO</th><th>PUNTOS</th><th>RANGO</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pos-cell gp">01</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-legend">LEYENDA</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell sp">02</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-maestro">MAESTRO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell bp">03</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-elite">ELITE</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ RANKING RETIROS ══════════ -->
+    <div class="divider"></div>
+
+    <div class="section-header" style="animation:slideUp .5s .5s cubic-bezier(.16,1,.3,1) both;">
+        <div class="section-title">RANKING RETIROS</div>
+    </div>
+
+    <div class="tabs" style="animation:slideUp .5s .52s cubic-bezier(.16,1,.3,1) both;">
+        <button class="tab-btn active" onclick="openTab(event,'ret-sem','ret')">SEMANAL</button>
+        <button class="tab-btn"        onclick="openTab(event,'ret-men','ret')">MENSUAL</button>
+    </div>
+
+    <div class="board-card" id="boardRet" style="animation:slideUp .5s .55s cubic-bezier(.16,1,.3,1) both;">
+
+        <!-- TAB SEMANAL RETIROS -->
+        <div id="ret-sem" class="tab-content active">
+            <div class="prize-ribbon green-rib">
+                💸 TOP 1 RETIRO: <strong style="color:#fff;margin:0 6px;">CONSULTAR POR WA</strong>
+            </div>
+            <div class="table-scroll-wrap">
+                <table class="board-table">
+                    <thead>
+                        <tr><th>#</th><th>ID USUARIO</th><th>PUNTOS</th><th>RANGO</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pos-cell gp">01</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-legend">LEYENDA</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell sp">02</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-maestro">MAESTRO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell bp">03</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-elite">ELITE</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- MENSUAL TAB -->
-        <div id="mensual" class="tab-content">
-            <div class="prize-ribbon">
-                💎 BONO MES: <strong style="color:#fff;margin-left:4px;">10% EXTRA</strong>
-                &nbsp;+&nbsp; <strong style="color:var(--gold);margin-left:4px;">REGALO VIP</strong>
+        <!-- TAB MENSUAL RETIROS -->
+        <div id="ret-men" class="tab-content">
+            <div class="prize-ribbon green-rib">
+                💎 TOP 1 RETIRO MES: <strong style="color:#fff;margin:0 6px;">CONSULTAR POR WA</strong>
             </div>
-            <table class="board-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>USUARIO</th>
-                        <th>VOLUMEN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pos-cell gold-pos">01</td>
-                        <td class="user-cell">@Bet_Master</td>
-                        <td class="points-cell">$1,200 USD</td>
-                    </tr>
-                    <tr>
-                        <td class="pos-cell silver-pos">02</td>
-                        <td class="user-cell">@Sniper_Vip</td>
-                        <td class="points-cell">$980 USD</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-wrap">
+                <table class="board-table">
+                    <thead>
+                        <tr><th>#</th><th>ID USUARIO</th><th>PUNTOS</th><th>RANGO</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pos-cell gp">01</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-legend">LEYENDA</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell sp">02</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-maestro">MAESTRO</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pos-cell bp">03</td>
+                            <td class="user-cell">——————</td>
+                            <td class="pts-cell">—</td>
+                            <td><span class="badge badge-elite">ELITE</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- CALCULATOR -->
     <div class="calc-section">
-        <div class="calc-label">CALCULADORA DE CAMBIO &nbsp; <span>USDT → CUP</span></div>
+        <div class="calc-label">CALCULADORA DE CAMBIO &nbsp;<span>USDT → CUP</span></div>
         <div class="calc-row">
             <div class="calc-input-wrap">
-                <span class="calc-input-prefix">$</span>
+                <span class="calc-prefix">$</span>
                 <input type="number" id="calcInput" placeholder="0.00 USDT / USD" min="0">
             </div>
             <div id="calcResult">
@@ -1132,6 +705,18 @@
                 <div class="result-label">CUP</div>
             </div>
         </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+        <a href="https://wa.me/5350677110?text=Hola,%20quiero%20hacer%20un%20depósito" class="btn-action btn-deposit">
+            <i class="fas fa-arrow-down"></i>DEPOSITAR
+            <span class="btn-sub">VÍA WHATSAPP</span>
+        </a>
+        <a href="https://wa.me/5350677110?text=Hola,%20quiero%20consultar%20un%20retiro" class="btn-action btn-withdraw">
+            <i class="fas fa-arrow-up"></i>RETIRAR
+            <span class="btn-sub">VÍA WHATSAPP</span>
+        </a>
     </div>
 
     <!-- INFO CARDS -->
@@ -1148,85 +733,54 @@
         </a>
     </div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="actions">
-        <a href="https://wa.me/5350677110?text=Hola,%20quiero%20hacer%20un%20depósito" class="btn-action btn-deposit">
-            <i class="fas fa-arrow-down"></i>
-            DEPOSITAR
-            <span class="btn-sub">VÍA WHATSAPP</span>
-        </a>
-        <a href="https://wa.me/5350677110?text=Hola,%20quiero%20consultar%20un%20retiro" class="btn-action btn-withdraw">
-            <i class="fas fa-arrow-up"></i>
-            RETIRAR
-            <span class="btn-sub">VÍA WHATSAPP</span>
-        </a>
-    </div>
-
-    <!-- FOOTER -->
     <footer>
         <div class="footer-brand">AKATSU<span>KI</span>CASH</div>
         <div class="footer-links">
             <a href="https://wa.me/5350677110" class="footer-link"><i class="fab fa-whatsapp"></i> CONTACTO</a>
-            <span style="color:#222;">|</span>
+            <span style="color:#1e1e26;">|</span>
             <a href="https://wa.me/5350677110?text=Reglas%20y%20condiciones" class="footer-link">TÉRMINOS</a>
-            <span style="color:#222;">|</span>
+            <span style="color:#1e1e26;">|</span>
             <a href="https://wa.me/5350677110?text=Quiero%20unirme" class="footer-link">REGISTRARSE</a>
         </div>
-        <div class="footer-copy">© 2026 AKATSUKICASH GLOBAL &nbsp;·&nbsp; CAJERO OFICIAL 1XBET &nbsp;·&nbsp; SOPORTE 24/7</div>
+        <div class="footer-copy">© 2026 AKATSUKICASH GLOBAL · CAJERO OFICIAL 1XBET · SOPORTE 24/7</div>
     </footer>
 
 </div>
 
 <script>
-    // ── TABS ──
-    function openTab(evt, tabName) {
-        document.querySelectorAll('.tab-content').forEach(el => {
-            el.style.display = 'none';
-            el.classList.remove('active');
+    // ─── TABS (independientes por grupo) ───
+    function openTab(evt, tabId, group) {
+        const board = document.getElementById(group === 'dep' ? 'boardDep' : 'boardRet');
+        board.querySelectorAll('.tab-content').forEach(el => {
+            el.style.display = 'none'; el.classList.remove('active');
         });
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        const tab = document.getElementById(tabName);
-        tab.style.display = 'block';
-        tab.classList.add('active');
+        evt.currentTarget.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        const tab = document.getElementById(tabId);
+        tab.style.display = 'block'; tab.classList.add('active');
         evt.currentTarget.classList.add('active');
     }
 
-    // ── CALCULATOR ──
+    // ─── CALCULADORA ───
+    // ► PARA ACTUALIZAR LA TASA: cambia el número 620 por el nuevo valor
     const TASA = 620;
-    const calcInput = document.getElementById('calcInput');
-    const resultVal = document.getElementById('resultVal');
-
-    calcInput.addEventListener('input', () => {
-        const val = parseFloat(calcInput.value) || 0;
-        const total = val * TASA;
-        resultVal.textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('calcInput').addEventListener('input', function() {
+        const val = parseFloat(this.value) || 0;
+        document.getElementById('resultVal').textContent =
+            (val * TASA).toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
     });
 
-    // ── UPDATE TIME ──
-    function setUpdateTime() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('updateTime').textContent = h + ':' + m + ' hrs';
+    // ─── HORA ───
+    function setTime() {
+        const n = new Date();
+        document.getElementById('updateTime').textContent =
+            String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0') + ' hrs';
     }
-    setUpdateTime();
-    setInterval(setUpdateTime, 60000);
+    setTime(); setInterval(setTime, 60000);
 
-    // ── MODAL ──
-    function openModal() {
-        document.getElementById('rankModal').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('rankModal').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeModal();
-    });
+    // ─── MODAL ───
+    function openModal()  { document.getElementById('rankModal').classList.add('open');    document.body.style.overflow='hidden'; }
+    function closeModal() { document.getElementById('rankModal').classList.remove('open'); document.body.style.overflow=''; }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 </script>
-
 </body>
 </html>
